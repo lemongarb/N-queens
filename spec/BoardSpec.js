@@ -9,13 +9,14 @@ describe("Board", function() {
     _.map('row col rooks majorDiagonal minorDiagonal queens'.split(' '), function(conflictType){
       var conflictDetected = board['hasAny' + capitalize(conflictType) + 'Conflicts']();
       var conflictExpected = _(expectedConflicts).contains(conflictType);
+      console.log(conflictType, conflictDetected, conflictExpected);
       expect(conflictDetected).to.be.equal(conflictExpected);
     });
   };
 
   it("should find non conflicts", function() {
     verifyConflictTypes([], [
-      [0, 0, 0, 0],
+      [0, 0, 0, 1],
       [0, 0, 0, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 0]
@@ -41,7 +42,6 @@ describe("Board", function() {
   });
 
   it("should find major diagonal conflicts", function() {
-    debugger;
     verifyConflictTypes(['majorDiagonal', 'queens'], [
       [0, 1, 0, 0],
       [0, 0, 1, 0],

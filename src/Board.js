@@ -77,36 +77,37 @@
         columnArray.push(this.get(i)[colIndex]);
       }
       columnArray.sort().reverse();
+      console.log(columnArray);
       return columnArray[1] ? true : false;
     },
 
     hasAnyColConflicts: function(){
       var foundConflict = false; 
-      for(var i=0; i < this.rows().length; i++){
-        this.hasColConflictAt(i) && (foundConflict = true);
+      debugger;
+      for(var i = 0; i < this.rows().length; i++){
+        if (this.hasColConflictAt(i)) {
+          foundConflict = true;
+        }
+        // this.hasColConflictAt(i) && (foundConflict = true);
       }
       return foundConflict; 
     },
 
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow){
-      // var diagArray = [];
-      // for(var r=0; r < this.rows().length; r++){
-      //   diagArray.push(this.get(r)[majorDiagonalColumnIndexAtFirstRow++]);
-      // }
-      // // console.log(diagArray);
-      // diagArray.sort().reverse();
-      // return diagArray[1] ? true : false;
-      return false;
+      var diagArray = [];
+      for(var r = 0; r < this.rows().length; r++){
+        diagArray.push(this.get(r)[majorDiagonalColumnIndexAtFirstRow++]);
+      }
+      diagArray.sort().reverse();
+      return diagArray[1] ? true : false;
     },
 
     hasAnyMajorDiagonalConflicts: function(){
-      // var foundConflict = false;
-      // for(var r = 0; r < this.rows().length; r++){
-      //   console.log(this.get(r));
-      //   this.hasMajorDiagonalConflictAt(r) && (foundConflict = true);
-      // }
-      // return foundConflict;
-      return false;
+      var foundConflict = false;
+      for(var r = 0; r < this.rows().length; r++){
+        this.hasMajorDiagonalConflictAt(r) && (foundConflict = true);
+      }
+      return foundConflict;
     },
 
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow){
