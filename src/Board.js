@@ -18,6 +18,7 @@
 
     togglePiece: function(rowIndex, colIndex){
       this.get(rowIndex)[colIndex] = + !this.get(rowIndex)[colIndex];
+      console.log(this.get(rowIndex));
       this.trigger('change');
     },
 
@@ -58,11 +59,20 @@
     // todo: fill in all these functions - they'll help you!
 
     hasRowConflictAt: function(rowIndex){
-      return false; // fixme
+      debugger;
+      var thisRow = this.get(rowIndex);
+      thisRow.sort().reverse();
+      return thisRow[1] ? true : false;
     },
 
     hasAnyRowConflicts: function(){
-      return false; // fixme
+      var foundConflict = false;
+      for(var i =0; i < this.rows().length; i++){
+        if(this.hasRowConflictAt(i)){
+          foundConflict = true;
+        }
+      }
+      return foundConflict;
     },
 
     hasColConflictAt: function(colIndex){
