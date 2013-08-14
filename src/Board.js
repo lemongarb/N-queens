@@ -59,7 +59,6 @@
     // todo: fill in all these functions - they'll help you!
 
     hasRowConflictAt: function(rowIndex){
-      debugger;
       var thisRow = this.get(rowIndex);
       thisRow.sort().reverse();
       return thisRow[1] ? true : false;
@@ -68,19 +67,26 @@
     hasAnyRowConflicts: function(){
       var foundConflict = false;
       for(var i =0; i < this.rows().length; i++){
-        if(this.hasRowConflictAt(i)){
-          foundConflict = true;
-        }
+        this.hasRowConflictAt(i) && (foundConflict = true);
       }
       return foundConflict;
     },
 
     hasColConflictAt: function(colIndex){
-      return false; // fixme
+      var columnArray = [];
+      for (var i = 0; i < this.rows().length; i++) {
+        columnArray.push(this.get(i)[colIndex]);
+      }
+      columnArray.sort().reverse();
+      return columnArray[1] ? true : false;
     },
 
     hasAnyColConflicts: function(){
-      return false; // fixme
+      var foundConflict = false; 
+      for(var i=0; i < this.rows().length; i++){
+        this.hasColConflictAt(i) && (foundConflict = true);
+      }
+      return foundConflict; 
     },
 
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow){
