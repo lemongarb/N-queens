@@ -18,7 +18,6 @@
 
     togglePiece: function(rowIndex, colIndex){
       this.get(rowIndex)[colIndex] = + !this.get(rowIndex)[colIndex];
-      console.log(this.get(rowIndex));
       this.trigger('change');
     },
 
@@ -90,11 +89,24 @@
     },
 
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow){
-      return false; // fixme
+      // var diagArray = [];
+      // for(var r=0; r < this.rows().length; r++){
+      //   diagArray.push(this.get(r)[majorDiagonalColumnIndexAtFirstRow++]);
+      // }
+      // // console.log(diagArray);
+      // diagArray.sort().reverse();
+      // return diagArray[1] ? true : false;
+      return false;
     },
 
     hasAnyMajorDiagonalConflicts: function(){
-      return false; // fixme
+      // var foundConflict = false;
+      // for(var r = 0; r < this.rows().length; r++){
+      //   console.log(this.get(r));
+      //   this.hasMajorDiagonalConflictAt(r) && (foundConflict = true);
+      // }
+      // return foundConflict;
+      return false;
     },
 
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow){
