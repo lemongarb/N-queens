@@ -15,8 +15,10 @@ window.findPossibleBoards = function(n, row, board) {
   var possibleBoards = [];
 
   for (var col = 0; col < n; col++) {
-    var boardCopy = {};
-    $.extend(true, boardCopy, board);
+    var boardCopy = new Board({'n': n});
+    for (var i = 0; i < n; i++) {
+      boardCopy.attributes[i] = board.attributes[i].slice();
+    }
     boardCopy.attributes[row][col] = 1;
     if (row === (n - 1)) {
       possibleBoards.push(boardCopy);
