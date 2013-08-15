@@ -64,7 +64,7 @@
 
     hasAnyRowConflicts: function(){
       var foundConflict = false;
-      for(var i =0; i < this.rows().length; i++){
+      for(var i = 0; i < this.rows().length; i++){
         this.hasRowConflictAt(i) && (foundConflict = true);
       }
       return foundConflict;
@@ -82,9 +82,7 @@
     hasAnyColConflicts: function(){
       var foundConflict = false; 
       for(var i = 0; i < this.rows().length; i++){
-        if (this.hasColConflictAt(i)) {
-          foundConflict = true;
-        }
+        this.hasColConflictAt(i) && (foundConflict = true);
       }
       return foundConflict; 
     },
