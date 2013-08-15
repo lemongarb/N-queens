@@ -3,10 +3,15 @@
 // (There are also optimizations that will allow you to skip a lot of the dead search space)
 
 window.findNRooksSolution = function(n){
-  var solution = undefined; //fixme
-
-  console.log('Single solution for ' + n + ' rooks:', solution);
-  return solution;
+  var possibleBoards = findPossibleBoards(n);
+  var result;
+  for (var i = 0; i < possibleBoards.length; i++) {
+    if (!possibleBoards[i].hasAnyRooksConflicts()) {
+      result = possibleBoards[i];
+      break;
+    }
+  }
+  return result;
 };
 
 window.findPossibleBoards = function(n, row, board) {
@@ -28,7 +33,7 @@ window.findPossibleBoards = function(n, row, board) {
   }
 
   return possibleBoards;
-}
+};
 
 window.countNRooksSolutions = function(n){
   var possibleBoards = findPossibleBoards(n);
@@ -42,23 +47,27 @@ window.countNRooksSolutions = function(n){
 };
 
 window.findNQueensSolution = function(n){
-  var solution = undefined; //fixme
-
-  console.log('Single solution for ' + n + ' queens:', solution);
-  return solution;
+  var possibleBoards = findPossibleBoards(n);
+  var result;
+  for (var i = 0; i < possibleBoards.length; i++) {
+    if (!possibleBoards[i].hasAnyQueensConflicts()) {
+      result = possibleBoards[i];
+      break;
+    }
+  }
+  return result;
 };
 
 window.countNQueensSolutions = function(n){
-  console.log("finding solution for: ", n);
   var possibleBoards = findPossibleBoards(n);
-  queenSolutions = [];
+  var solutions = [];
   _.each(possibleBoards, function(board) {
     if (!board.hasAnyQueensConflicts()) {
       console.log(board);
-      queenSolutions.push(board);
+      solutions.push(board);
     }
   });
-  return n === 0 ? 1 : queenSolutions.length;
+  return n === 0 ? 1 : solutions.length;
 };
 
 
