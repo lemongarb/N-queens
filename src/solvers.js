@@ -9,34 +9,27 @@ window.findNRooksSolution = function(n){
   return solution;
 };
 
-window.countNRooksSolutions = function(n , board, row){
-  console.log(this);
-  if(n === 0) return 1; 
-  var solutionCount = 0;
-  var row = row || 0;
-  var board = board || new Board({n:n});
-  console.log("n is: ", n);
-  if(row <= n){
-    for(var col = 0; col < n; col++){
-      // var boardCopy = {}; 
-      // // boardCopy = _.extend(boardCopy, board);
-      // var boardCopy = new Board(board.attributes);
-      var boardArray = [];
-      for (var key in board) {
-        boardArray.push(key);
-      }
-      var boardCopy = new Board(boardArray);
+window.countNRooksSolutions = function(n , board, row, solutions){
+  if(n === 0 || n === 1) return 1; 
+  row = row || 0;
+  solutions = solutions || 0;
+  board = board || new Board({n:n});
+  if (row < n){
+    for (var col = 0; col < n; col++){
+      var boardCopy = {};
+      $.extend(true, boardCopy, board);
       boardCopy.attributes[row][col] = 1;
-      this.countNRooksSolutions(n, boardCopy, row+1);
+      return solutions + countNRooksSolutions(n, boardCopy, row + 1, solutions);
     }
   } else {
     // !board.hasAnyRookConflicts() && solutionCount++;
     if (board.hasAnyRooksConflicts() === false) {
-      solutionCount++;
+      return 1;
+    } else {
+      return 0;
     }
   }
-  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  return solutionCount;
+//  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
 };
 
 window.findNQueensSolution = function(n){
