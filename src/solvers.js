@@ -9,9 +9,32 @@ window.findNRooksSolution = function(n){
   return solution;
 };
 
-window.countNRooksSolutions = function(n){
-  var solutionCount = undefined; //fixme
-
+window.countNRooksSolutions = function(n , board, row){
+  console.log(this);
+  if(n === 0) return 1; 
+  var solutionCount = 0;
+  var row = row || 0;
+  var board = board || new Board({n:n});
+  console.log("n is: ", n);
+  if(row <= n){
+    for(var col = 0; col < n; col++){
+      // var boardCopy = {}; 
+      // // boardCopy = _.extend(boardCopy, board);
+      // var boardCopy = new Board(board.attributes);
+      var boardArray = [];
+      for (var key in board) {
+        boardArray.push(key);
+      }
+      var boardCopy = new Board(boardArray);
+      boardCopy.attributes[row][col] = 1;
+      this.countNRooksSolutions(n, boardCopy, row+1);
+    }
+  } else {
+    // !board.hasAnyRookConflicts() && solutionCount++;
+    if (board.hasAnyRooksConflicts() === false) {
+      solutionCount++;
+    }
+  }
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
