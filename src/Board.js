@@ -77,7 +77,6 @@
         columnArray.push(this.get(i)[colIndex]);
       }
       columnArray.sort().reverse();
-      console.log(columnArray);
       return columnArray[1] ? true : false;
     },
 
@@ -110,13 +109,28 @@
     },
 
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow){
-      return false; // fixme
+      var diagArray = [];
+      var start = 0;
+      for(var r = this.rows().length; r > 0; r--) {
+        diagArray.push(this.get(start)[minorDiagonalColumnIndexAtFirstRow--]);
+        start++;
+      }
+      console.log(diagArray);
+      var arraySum = _.reduce(diagArray, function(sum, val){
+        console.log(sum + val);
+        return val ? sum + val : sum;
+      });
+      console.log("reversed: ", diagArray)
+      return arraySum > 1 ? true : false;
     },
 
     hasAnyMinorDiagonalConflicts: function(){
-      return false; // fixme
+      var foundConflict = false;
+      for(var r = 0; r < this.rows().length; r++){
+        this.hasMinorDiagonalConflictAt(r) && (foundConflict = true);
+      }
+      return foundConflict;
     }
-
   });
 
   var makeEmptyMatrix = function(n){

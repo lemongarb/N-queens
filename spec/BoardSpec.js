@@ -16,7 +16,7 @@ describe("Board", function() {
 
   it("should find non conflicts", function() {
     verifyConflictTypes([], [
-      [0, 0, 0, 1],
+      [0, 0, 0, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 0]
