@@ -101,7 +101,7 @@
 
     hasAnyMajorDiagonalConflicts: function(){
       var foundConflict = false;
-      for(var r = 0; r < this.rows().length; r++){
+      for(var r = this.rows().length * -1; r < this.rows().length; r++){
         this.hasMajorDiagonalConflictAt(r) && (foundConflict = true);
       }
       return foundConflict;
@@ -117,7 +117,7 @@
 
     hasAnyMinorDiagonalConflicts: function(){
       var foundConflict = false;
-      for(var r = 0; r < this.rows().length; r++){
+      for(var r = this.rows().length * 2; r > 0; r--){
         this.hasMinorDiagonalConflictAt(r) && (foundConflict = true);
       }
       return foundConflict;
