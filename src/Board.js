@@ -93,11 +93,11 @@
 
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow){
       var diagArray = [];
+      var oneCount = 0;
       for(var r = 0; r < this.rows().length; r++){
-        diagArray.push(this.get(r)[majorDiagonalColumnIndexAtFirstRow++]);
+        !!this.get(r)[majorDiagonalColumnIndexAtFirstRow + r] && oneCount++;
       }
-      diagArray.sort().reverse();
-      return diagArray[1] ? true : false;
+      return oneCount > 1 ? true : false;
     },
 
     hasAnyMajorDiagonalConflicts: function(){
@@ -109,19 +109,11 @@
     },
 
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow){
-      var diagArray = [];
-      var start = 0;
-      for(var r = this.rows().length; r > 0; r--) {
-        diagArray.push(this.get(start)[minorDiagonalColumnIndexAtFirstRow--]);
-        start++;
+      var oneCount = 0;
+      for (var r = 0; r < this.rows().length; r++) {
+        !!this.get(r)[minorDiagonalColumnIndexAtFirstRow - r] && oneCount++;
       }
-      console.log(diagArray);
-      var arraySum = _.reduce(diagArray, function(sum, val){
-        console.log(sum + val);
-        return val ? sum + val : sum;
-      });
-      console.log("reversed: ", diagArray)
-      return arraySum > 1 ? true : false;
+      return oneCount > 1 ? true : false;
     },
 
     hasAnyMinorDiagonalConflicts: function(){
