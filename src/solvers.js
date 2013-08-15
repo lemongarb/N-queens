@@ -14,26 +14,33 @@ window.findNRooksSolution = function(n){
   return result;
 };
 
-window.findPossibleBoards = function(n, row, board) {
+window.findPossibleBoards = function(n, row, board, columnConflicts) {
   row = row || 0;
   board = board || new Board({'n': n});
   var possibleBoards = [];
+  columnConflicts = columnConflicts || [];
 
   for (var col = 0; col < n; col++) {
-    var boardCopy = new Board({'n': n});
-    for (var i = 0; i < n; i++) {
-      boardCopy.attributes[i] = board.attributes[i].slice();
-    }
-    boardCopy.attributes[row][col] = 1;
+    debugger;
+    if(columnConflicts[col] !== 1){
+      var boardCopy = new Board({'n': n});
+      for (var i = 0; i < n; i++) {
+        boardCopy.attributes[i] = board.attributes[i].slice();
+      }
+      boardCopy.attributes[row][col] = 1;
+      var columnConflictsCopy = columnConflicts.slice();
+      columnConflictsCopy[col] = 1;
     if (row === (n - 1)) {
       possibleBoards.push(boardCopy);
     } else {
-      possibleBoards = possibleBoards.concat(findPossibleBoards(n, row + 1, boardCopy));
+      possibleBoards = possibleBoards.concat(findPossibleBoards(n, row + 1, boardCopy, columnConflictsCopy));
+    }
     }
   }
 
   return possibleBoards;
 };
+
 
 window.countNRooksSolutions = function(n){
   var possibleBoards = findPossibleBoards(n);

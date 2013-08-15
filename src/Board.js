@@ -57,7 +57,6 @@
     // todo: fill in all these functions - they'll help you!
 
     hasRowConflictAt: function(rowIndex){
-      // debugger;
       var thisRow = this.get(rowIndex).slice();
       thisRow.sort().reverse();
       return thisRow[1] ? true : false;
@@ -86,7 +85,6 @@
         if (this.hasColConflictAt(i)) {
           foundConflict = true;
         }
-        // this.hasColConflictAt(i) && (foundConflict = true);
       }
       return foundConflict; 
     },
