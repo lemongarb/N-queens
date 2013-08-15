@@ -9,27 +9,34 @@ window.findNRooksSolution = function(n){
   return solution;
 };
 
-window.countNRooksSolutions = function(n , board, row, solutions){
-  if(n === 0 || n === 1) return 1; 
+window.findPossibleBoards = function(n, row, board) {
   row = row || 0;
-  solutions = solutions || 0;
-  board = board || new Board({n:n});
-  if (row < n){
-    for (var col = 0; col < n; col++){
-      var boardCopy = {};
-      $.extend(true, boardCopy, board);
-      boardCopy.attributes[row][col] = 1;
-      return solutions + countNRooksSolutions(n, boardCopy, row + 1, solutions);
-    }
-  } else {
-    // !board.hasAnyRookConflicts() && solutionCount++;
-    if (board.hasAnyRooksConflicts() === false) {
-      return 1;
+  board = board || new Board({'n': n});
+  var possibleBoards = [];
+
+  for (var col = 0; col < n; col++) {
+    var boardCopy = {};
+    $.extend(true, boardCopy, board);
+    boardCopy.attributes[row][col] = 1;
+    if (row === (n - 1)) {
+      possibleBoards.push(boardCopy);
     } else {
-      return 0;
+      possibleBoards = possibleBoards.concat(findPossibleBoards(n, row + 1, boardCopy));
     }
   }
-//  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
+
+  return possibleBoards;
+}
+
+window.countNRooksSolutions = function(n){
+  var possibleBoards = findPossibleBoards(n);
+  var solutions = [];
+  _.each(possibleBoards, function(board) {
+    if (!board.hasAnyRooksConflicts()) {
+      solutions.push(board);
+    }
+  })
+  return n === 0 ? 1 : solutions.length;
 };
 
 window.findNQueensSolution = function(n){
